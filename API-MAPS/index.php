@@ -29,7 +29,7 @@
 </div>
 <script async defer 
 src="https://maps.googleapis.com/maps/api/
-js?key=AIzaSyAbi65K7PefZP5cYBJeDr2MsiTJx089WPI&callback=initialize">
+js?key=YOUR_API_KEY&callback=initialize">
 </script>
 <script src="js/jquery.min.js"></script>
 <script src="js/googlemap.js"></script>
