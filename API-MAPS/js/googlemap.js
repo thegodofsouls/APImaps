@@ -5,7 +5,7 @@ function initialize() {
     //pegando a localizaçao atual
     if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(function(position1) {
-                var pos = {
+                let pos = {
                     lat: position1.coords.latitude,
                     lng: position1.coords.longitude,
                 };
@@ -15,13 +15,13 @@ function initialize() {
                 directionsService = new google.maps.DirectionsService();
 
                 //define a marcaçao principal de localizaçao do dispositivo atual
-                var marker = new google.maps.Marker({
+                let marker = new google.maps.Marker({
                     title: 'Localização Atual', //titulo que irá aparecer ao passar o cursor do mouse em cima
                     map: map, //define a imagem do marcador
                     position: new google.maps.LatLng(pos.lat, pos.lng) //posiçao das coordenadas de latitude e longitude
                 });
 
-                var options = {
+                let options = {
                     zoom: 12, //zoom que o mapa vai receber
                     center: marker.position, //posiçao
                     mapTypeId: google.maps.MapTypeId.ROADMAP //tipo de mapa Roadmap = mapa de estrada
@@ -40,17 +40,17 @@ function initialize() {
                         marker.setMap(null);
 
                         //objeto que renderiza a rota
-                        var directionsDisplay = new google.maps.DirectionsRenderer();
+                        let directionsDisplay = new google.maps.DirectionsRenderer();
 
                         //contem as informaçoes da requisiçao que irá traçar a rota
-                        var request = {
+                        let request = {
                             origin: $("#route_from").val(),
                             destination: marker.position,
                             travelMode: google.maps.DirectionsTravelMode.DRIVING //modos de transportes
                         };
 
                         //vai retornar a rota entre os dois endereços
-                        directionsService.route(request, function(response, status) {
+                        directionsService.route(request, (response, status) => {
                             if (status == google.maps.DirectionsStatus.OK) {
                                 directionsDisplay.setDirections(response);
                                 directionsDisplay.setMap(map);
@@ -62,7 +62,7 @@ function initialize() {
                 });
 
                 console.log(position1);
-            }, function(error) {
+            }, (error) => {
                 console.log(error);
             }, {
                 enableHighAccuracy: true,
@@ -91,44 +91,44 @@ function loadMap() {
          map: map
      }); */
 
-    var cdata = JSON.parse(document.getElementById('data').innerHTML);
+    let cdata = JSON.parse(document.getElementById('data').innerHTML);
     geocoder = new google.maps.Geocoder();
     codeAddress(cdata)
 
-    var allData = JSON.parse(document.getElementById('allData').innerHTML);
+    let allData = JSON.parse(document.getElementById('allData').innerHTML);
     showAllColleges(allData);
 
 }
 
 function showAllColleges(allData) {
-    var infoWind = new google.maps.InfoWindow;
-    Array.prototype.forEach.call(allData, function(data) {
-        var content = document.createElement('div');
-        var strong = document.createElement('strong');
+    let infoWind = new google.maps.InfoWindow;
+    Array.prototype.forEach.call(allData, (data) => {
+        let content = document.createElement('div');
+        let strong = document.createElement('strong');
         strong.textContent = data.name;
         content.appendChild(strong);
 
-        var marker = new google.maps.Marker({
+       let marker = new google.maps.Marker({
             position: new google.maps.LatLng(data.lat, data.lng),
             map: map
         });
 
-        marker.addListener('click', function() {
+        marker.addListener('click', () => {
                 infoWind.setContent(content);
                 infoWind.open(map, marker);
-            })
+            });
             //fim
 
     });
 }
 
 function codeAddress(cdata) {
-    Array.prototype.forEach.call(cdata, function(data) {
-        var address = data.name + ' ' + data.address;
-        geocoder.geocode({ 'address': address }, function(results, status) {
+    Array.prototype.forEach.call(cdata, (data) => {
+        let address = data.name + ' ' + data.address;
+        geocoder.geocode({ 'address': address }, (results, status) => {
             if (status == 'OK') {
                 map.setCenter(results[0].geometry.location);
-                var points = {};
+                let points = {};
                 points.id = data.id;
                 points.lat = map.getCenter().lat();
                 points.lng = map.getCenter().lng();
