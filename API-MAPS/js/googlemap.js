@@ -16,7 +16,7 @@ function initialize() {
 
                 //define a marcaçao principal de localizaçao do dispositivo atual
                 let marker = new google.maps.Marker({
-                    title: 'Localização Atual', //titulo que irá aparecer ao passar o cursor do mouse em cima
+                    title: 'Localização Atual', //titulo que irá aparecer ao passar o cursor do mouse em cima da marcaçao principal
                     map: map, //define a imagem do marcador
                     position: new google.maps.LatLng(pos.lat, pos.lng) //posiçao das coordenadas de latitude e longitude
                 });
@@ -51,7 +51,7 @@ function initialize() {
 
                         //vai retornar a rota entre os dois endereços
                         directionsService.route(request, (response, status) => {
-                            if (status == google.maps.DirectionsStatus.OK) {
+                            if (status == google.maps.DirectionsStatus.OK || request.origin != null) {
                                 directionsDisplay.setDirections(response);
                                 directionsDisplay.setMap(map);
                             }
@@ -59,6 +59,7 @@ function initialize() {
 
                         return false;
                     });
+
                 });
 
                 console.log(position1);
@@ -77,7 +78,7 @@ function initialize() {
 
 }
 
-function loadMap() {
+const loadMap = () => {
 
     /* var sp = { lat: -23.5489, lng: -46.6388 };
      map = new google.maps.Map(document.getElementById('map'), {
@@ -98,9 +99,9 @@ function loadMap() {
     let allData = JSON.parse(document.getElementById('allData').innerHTML);
     showAllColleges(allData);
 
-}
+};
 
-function showAllColleges(allData) {
+const showAllColleges = (allData) => {
     let infoWind = new google.maps.InfoWindow;
     Array.prototype.forEach.call(allData, (data) => {
         let content = document.createElement('div');
@@ -108,21 +109,21 @@ function showAllColleges(allData) {
         strong.textContent = data.name;
         content.appendChild(strong);
 
-       let marker = new google.maps.Marker({
+        let marker = new google.maps.Marker({
             position: new google.maps.LatLng(data.lat, data.lng),
             map: map
         });
 
         marker.addListener('click', () => {
-                infoWind.setContent(content);
-                infoWind.open(map, marker);
-            });
-            //fim
+            infoWind.setContent(content);
+            infoWind.open(map, marker);
+        });
+        //fim
 
     });
-}
+};
 
-function codeAddress(cdata) {
+const codeAddress = (cdata) => {
     Array.prototype.forEach.call(cdata, (data) => {
         let address = data.name + ' ' + data.address;
         geocoder.geocode({ 'address': address }, (results, status) => {
@@ -139,9 +140,9 @@ function codeAddress(cdata) {
             }
         });
     });
-}
+};
 
-function updateCollegeWithLatLng(points) {
+const updateCollegeWithLatLng = (points) => {
     //requisição ajax
     $.ajax({
         url: 'action.php',
@@ -152,4 +153,4 @@ function updateCollegeWithLatLng(points) {
             location.reload();
         }
     })
-}
+};

@@ -1,0 +1,4 @@
+npm init
+npm install bootstrap --save
+npm install fontawesome --save
+npm install jquery --save

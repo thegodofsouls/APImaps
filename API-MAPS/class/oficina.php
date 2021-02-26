@@ -67,7 +67,7 @@
         public function __construct()
         {
             //chamando a conexao
-             require_once('class/dbconnect.php');
+             require_once('dbconnect.php');
              $conn = new DbConnect(); //instanciando a classe de conexao
              $this->conn = $conn->connection(); 
         }

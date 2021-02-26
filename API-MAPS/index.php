@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Casche-control" content="no-cache">
-    <title>index</title>
-</head>
-<body>
-    <h1>Bem vindo</h1>
-    <a href="map.php">Vizualizar o mapa</a>
-</body>
-</html>
+<?php
+    require('src/header.php');
+?>
+    <a href="src/map.php">Vizualizar o mapa</a>
